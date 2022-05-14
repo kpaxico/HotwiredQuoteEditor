@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotwiredQuoteEditor", "HotwiredQuoteEditor\HotwiredQuoteEditor.csproj", "{4136747E-FB30-4682-8E3B-653A65BA12DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotwiredQuoteEditor", "HotwiredQuoteEditor\HotwiredQuoteEditor.csproj", "{4136747E-FB30-4682-8E3B-653A65BA12DA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{631CC1B0-7A39-4B45-818F-D676A42F323F}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

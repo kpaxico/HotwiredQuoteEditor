@@ -1,0 +1,33 @@
+﻿/**
+ * This injects Tailwind's base styles and any base styles registered by plugins. Preflight will be injected here.
+ */
+@tailwind base;
+
+@layer base {
+  h1 {
+    @apply text-3xl text-gray-700 font-bold;
+  }
+
+  h2 {
+    @apply text-xl;
+  }
+
+  h3 {
+    @apply text-lg;
+  }
+}
+
+/**
+ * This injects Tailwind's component classes and any component classes registered by plugins.
+ * Use the components layer for any more complicated classes you want to add to your project that you’d still like to be able to override with utility classes.
+ */
+@tailwind components;
+
+/**
+ * This injects Tailwind's utility classes and any utility classes registered by plugins.
+ */
+@tailwind utilities;
+
+.link-button-primary {
+  @apply ml-3 justify-center py-2 px-4 border border-site shadow-sm text-sm font-medium rounded-md text-white bg-gradient-to-r from-[#d52a47] to-[#df5134] hover:bg-site-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-site;
+}
