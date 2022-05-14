@@ -381,44 +381,10 @@ h3 {
  * This injects Tailwind's component classes and any component classes registered by plugins.
  * Use the components layer for any more complicated classes you want to add to your project that you’d still like to be able to override with utility classes.
  */
-.container {
-  width: 100%;
-}
-@media (min-width: 640px) {
-  .container {
-    max-width: 640px;
-  }
-}
-@media (min-width: 768px) {
-  .container {
-    max-width: 768px;
-  }
-}
-@media (min-width: 1024px) {
-  .container {
-    max-width: 1024px;
-  }
-}
-@media (min-width: 1280px) {
-  .container {
-    max-width: 1280px;
-  }
-}
-@media (min-width: 1536px) {
-  .container {
-    max-width: 1536px;
-  }
-}
 
 /**
  * This injects Tailwind's utility classes and any utility classes registered by plugins.
  */
-.m-5 {
-  margin: 1.25rem;
-}
-.m-10 {
-  margin: 2.5rem;
-}
 .m-12 {
   margin: 3rem;
 }
@@ -441,11 +407,11 @@ h3 {
   --tw-bg-opacity: 1;
   background-color: rgb(252 250 247 / var(--tw-bg-opacity));
 }
-.p-2 {
-  padding: 0.5rem;
+.p-5 {
+  padding: 1.25rem;
 }
-.pb-3 {
-  padding-bottom: 0.75rem;
+.pt-5 {
+  padding-top: 1.25rem;
 }
 .text-center {
   text-align: center;

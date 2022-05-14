@@ -29,5 +29,9 @@
     "terser-webpack-plugin": "^5.3.1",
     "webpack": "^5.72.1",
     "webpack-cli": "^4.9.2"
+  },
+  "dependencies": {
+    "@hotwired/turbo": "^7.1.0",
+    "stimulus": "^3.0.1"
   }
 }

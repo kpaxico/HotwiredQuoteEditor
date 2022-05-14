@@ -7,5 +7,9 @@
       <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Folder Include="ClientApp\src\js\controllers\" />
+    </ItemGroup>
+
   </Project>
 
