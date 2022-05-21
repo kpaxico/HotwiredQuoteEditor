@@ -1,0 +1,7 @@
+﻿@model HotwiredQuoteEditor.Pages.Note
+
+<turbo-stream action="replace" target=@("note_" + Model.Id)>
+  <template>
+    <partial name="_NoteView.cshtml" model="@Model" />
+  </template>
+</turbo-stream>

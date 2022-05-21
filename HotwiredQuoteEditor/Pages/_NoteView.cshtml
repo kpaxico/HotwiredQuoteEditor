@@ -1,0 +1,11 @@
+﻿@model HotwiredQuoteEditor.Pages.Note
+
+<turbo-frame id="note_@Model.Id">
+  <div class="grid grid-cols-3 py-3 items-baseline">
+    <p class="text-left">@Model.Name</p>
+    <a asp-page="/Index" asp-page-handler="EditNote" asp-route-id="@Model.Id" class="link-button-primary ml-2">Edit</a>
+    <form method="post">
+      <button asp-page="/Index" asp-page-handler="DeleteNote" asp-route-id="@Model.Id" class="button-primary ml-2">Delete</button>
+    </form>
+  </div>
+</turbo-frame>

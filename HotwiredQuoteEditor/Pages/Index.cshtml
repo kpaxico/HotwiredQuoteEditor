@@ -19,6 +19,18 @@
       <a asp-page="/Index" asp-page-handler="Add" data-turbo-frame="third-frame" class="link-button-primary ml-2">Add Message 3</a>
 
       <partial name="_MessageView3" model="@Model"></partial>
+
+      <div class="mt-2 border-2 p-2">
+        <h2 class="display: inline">Notes</h2>
+        <a asp-page="/Index" asp-page-handler="AddNote" data-turbo-frame="note_0" class="link-button-primary ml-2">Add</a>
+        <turbo-frame id="note_0">
+        </turbo-frame>
+        <turbo-frame id="notes">
+          @foreach(var note in Notes.Instance) {
+            <partial name="_NoteView" model="@note"></partial>
+          }
+        </turbo-frame>
+      </div>
     </div>
     <div class="flex-1 grid justify-center">
       <img src="~/dist/images/stimulus.svg" width="275" height="45" />

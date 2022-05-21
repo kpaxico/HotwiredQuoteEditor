@@ -42,6 +42,60 @@ namespace HotwiredQuoteEditor.Pages {
       return Partial("_MessageView3", this);
     }
 
+    public PartialViewResult OnGetAddNote(int id) {
+      var note = new Note { Id = 0, Name = String.Empty };
+      return Partial("_NoteAddEdit", note);
+    }
+
+    public PartialViewResult OnGetEditNote(int id) {
+      var note = Notes.Instance.Where(i => i.Id == id).FirstOrDefault();
+      return Partial("_NoteAddEdit", note);
+    }
+
+    public PartialViewResult OnPostSaveNote(int id, string name) {
+      if(id == 0) {
+        var note = new Note { Id = Notes.Instance.Count + 1, Name = name };
+        Notes.Instance.Add(note);
+
+        Response.ContentType = "text/vnd.turbo-stream.html";
+        return Partial("_NoteAdd", note);
+      } else {
+        var note = Notes.Instance.Where(i => i.Id == id).FirstOrDefault();
+        note.Name = name;
+
+        Response.ContentType = "text/vnd.turbo-stream.html";
+        return Partial("_NoteEdit", note);
+      }
+    }
+
+    public PartialViewResult OnPostDeleteNote(int id) {
+      var note = Notes.Instance.Where(i => i.Id == id).FirstOrDefault();
+      Notes.Instance.Remove(note);
+
+      Response.ContentType = "text/vnd.turbo-stream.html";
+      return Partial("_NoteDelete", note);
+    }
   }
 
+  public class Note {
+    public int Id { get; set; }
+    public string Name { get; set; }
+  }
+
+  public class Notes : List<Note> {
+    private Notes() { }
+    private static Notes _Instance = null;
+    public static Notes Instance {
+      get {
+        if(_Instance == null) {
+          _Instance = new Notes();
+
+          for(var i = 0; i < 2; i++) {
+            _Instance.Add(new Note { Id = i + 1, Name = $"Note {i + 1}" });
+          }
+        }
+        return _Instance;
+      }
+    }
+  }
 }

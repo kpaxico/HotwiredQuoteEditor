@@ -1,0 +1,12 @@
+﻿@model HotwiredQuoteEditor.Pages.Note
+
+<turbo-frame id="note_@Model.Id">
+  <form method="post">
+    <input type="hidden" asp-for="@Model.Id" hidden />
+    <div class="grid grid-cols-3 py-3">
+      <input asp-for="@Model.Name" />
+      <a asp-page="/Index" class="link-button-primary ml-2">Cancel</a>
+      <button asp-page="/Index" asp-page-handler="SaveNote" asp-route-id="@Model.Id" class="button-primary ml-2">Save</button>
+    </div>
+  </form>
+</turbo-frame>
