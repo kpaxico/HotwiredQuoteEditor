@@ -15,6 +15,10 @@
   h3 {
     @apply text-lg;
   }
+
+  [type='text'], [type='email'], [type='url'], [type='password'], [type='number'], [type='date'], [type='datetime-local'], [type='month'], [type='search'], [type='tel'], [type='time'], [type='week'], [multiple], textarea, select {
+    @apply w-full px-3 py-2 text-sm border border-red-900 rounded-md shadow-sm focus:border-site focus:ring-site;
+  }
 }
 
 /**
@@ -29,5 +33,9 @@
 @tailwind utilities;
 
 .link-button-primary {
-  @apply ml-3 justify-center py-2 px-4 border border-site shadow-sm text-sm font-medium rounded-md text-white bg-gradient-to-r from-[#d52a47] to-[#df5134] hover:bg-site-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-site;
+  @apply justify-center px-2.5 py-1.5 border border-site shadow-sm text-sm font-medium rounded-md text-white bg-gradient-to-r from-[#d52a47] to-[#df5134] hover:bg-site-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-site;
+}
+
+.button-primary {
+  @apply justify-center px-2.5 py-1.5 border border-transparent text-sm font-medium rounded shadow-sm text-white bg-site-600 hover:bg-site-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-site;
 }

@@ -1,0 +1,10 @@
+﻿@model HotwiredQuoteEditor.Pages.IndexModel
+
+<turbo-frame id="second-frame">
+  <form method="post">
+    <div class="grid grid-cols-3 m-2 items-baseline">
+      <input type="text" class="col-span-2 text-left" asp-for="@Model.Message2" />
+      <button type="submit" asp-page="/Index" asp-page-handler="Edit" class="button-primary ml-2">Save</button>
+    </div>
+  </form>
+</turbo-frame>

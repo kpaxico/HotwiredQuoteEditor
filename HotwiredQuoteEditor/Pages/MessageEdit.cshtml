@@ -1,0 +1,23 @@
+﻿@page
+@model MessageEditModel
+
+<div class="text-center m-12">
+  <h2>This is a port of the "<a href="https://www.hotrails.dev/" target="_blank" class="underline underline-offset-2">The Turbo Rails Tutorial</a>" to the ASP.NET Core environment.</h2>
+  @*<a asp-area="Tutorial" asp-page="/Quotes" class="link-button-primary inline-block mt-5">Go to the Quote Editor</a>*@
+  <div class="flex mt-20">
+    <div class="flex-1 grid justify-center">
+      <img src="~/dist/images/turbo.svg" width="200" height="45" />
+      <turbo-frame id="first-frame">
+        <form method="post">
+          <div class="grid grid-cols-3 m-2 items-baseline">
+            <input type="text" class="col-span-2 text-left" asp-for="@Model.Message" />
+            <button type="submit" asp-page="/MessageEdit" class="button-primary ml-2">Save</button>
+          </div>
+        </form>
+      </turbo-frame>
+    </div>
+    <div class="flex-1 grid justify-center">
+      <img src="~/dist/images/stimulus.svg" width="275" height="45" />
+    </div>
+  </div>
+</div>

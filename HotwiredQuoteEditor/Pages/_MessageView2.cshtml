@@ -1,0 +1,8 @@
+﻿@model HotwiredQuoteEditor.Pages.IndexModel
+
+<turbo-frame id="second-frame">
+  <div class="grid grid-cols-3 m-2 items-baseline">
+    <p class="col-span-2 text-left">@Model.Message2</p>
+    <a asp-page="/Index" asp-page-handler="Edit" asp-route-message2="@Model.Message2" class="link-button-primary ml-2">Edit me</a>
+  </div>
+</turbo-frame>

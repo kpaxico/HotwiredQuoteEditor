@@ -4,12 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>@ViewData["Title"] - Hotwired Quote Editor</title>
-  <script src="~/dist/app.js" defer></script>
-  <link rel="stylesheet" href="~/dist/app.css" />
+  <script src="~/dist/app.js" defer data-turbo-track="reload"></script>
+  <link rel="stylesheet" href="~/dist/app.css" data-turbo-track="reload" />
 </head>
 <body class="p-5 bg-[#fcfaf7]">
   <header class="flex items-center">
-    <img src="~/dist/images/logo.png" runat="server" width="40px" class="flex-none">
+    <a asp-page="/Index"><img src="~/dist/images/logo.png" runat="server" width="40" class="flex-none"></a>
     <h1>Hotwired ASP.NET Core Quote Editor</h1>
   </header>
   <div class="pt-5">

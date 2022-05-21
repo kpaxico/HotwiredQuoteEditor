@@ -1,0 +1,11 @@
+﻿@model HotwiredQuoteEditor.Pages.IndexModel
+
+<turbo-frame id="third-frame">
+  @if(String.IsNullOrEmpty(@Model.Message3)) {
+    <p class="mt-2">Message 3 is empty.</p>
+  } else {
+    <div class="grid grid-cols-3 m-2 items-baseline">
+      <p class="col-span-2 text-left">@($"Message 3: {Model.Message3}")</p>
+    </div>
+  }
+</turbo-frame>

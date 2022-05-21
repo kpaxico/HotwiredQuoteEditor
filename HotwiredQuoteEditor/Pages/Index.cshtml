@@ -1,7 +1,27 @@
 ﻿@page
 @model IndexModel
 
-<div class="text-center m-12">
-  <h2>This is a port of the "<a href="https://www.hotrails.dev/" target="_blank">The Turbo Rails Tutorial</a>" to the ASP.NET Core environment.</h2>
-  <a asp-area="Tutorial" asp-page="/Quotes" class="link-button-primary inline-block mt-2">Go to the Quote Editor</a>
+<div class="text-center my-12">
+  <h2>This is a port of the "<a href="https://www.hotrails.dev/" target="_blank" class="underline underline-offset-2">The Turbo Rails Tutorial</a>" to the ASP.NET Core environment.</h2>
+  <a asp-area="Tutorial" asp-page="/Quotes" class="link-button-primary inline-block mt-5">Go to the Quote Editor</a>
+  <div class="flex mt-20">
+    <div class="flex-1 grid justify-center">
+      <img src="~/dist/images/turbo.svg" width="200" height="45" />
+      <turbo-frame id="first-frame">
+        <div class="grid grid-cols-3 m-2 items-baseline">
+          <p class="col-span-2 text-left">@Model.Message1</p>
+          <a asp-page="/MessageEdit" asp-route-message="@Model.Message1" class="link-button-primary ml-2">Edit me</a>
+        </div>
+      </turbo-frame>
+
+      <partial name="_MessageView2" model="@Model"></partial>
+
+      <a asp-page="/Index" asp-page-handler="Add" data-turbo-frame="third-frame" class="link-button-primary ml-2">Add Message 3</a>
+
+      <partial name="_MessageView3" model="@Model"></partial>
+    </div>
+    <div class="flex-1 grid justify-center">
+      <img src="~/dist/images/stimulus.svg" width="275" height="45" />
+    </div>
+  </div>
 </div>
