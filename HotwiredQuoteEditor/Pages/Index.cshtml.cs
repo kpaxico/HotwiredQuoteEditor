@@ -1,11 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.SignalR;
+
+using HotwiredQuoteEditor.Hubs;
+using HotwiredQuoteEditor.Services;
 
 namespace HotwiredQuoteEditor.Pages {
 
   public class IndexModel : PageModel {
 
     private readonly ILogger<IndexModel> _Logger;
+    private readonly IHubContext<AppHub> _Hub;
+    private readonly IRazorPartialToStringRenderer _Renderer;
+
+    public IndexModel(ILogger<IndexModel> logger, IHubContext<AppHub> hub, IRazorPartialToStringRenderer renderer) {
+      _Logger = logger;
+      _Hub = hub;
+      _Renderer = renderer;
+    }
 
     [BindProperty(SupportsGet = true)]
     public string Message1 { get; set; }
@@ -13,10 +25,6 @@ namespace HotwiredQuoteEditor.Pages {
     public string Message2 { get; set; }
     [BindProperty(SupportsGet = true)]
     public string Message3 { get; set; }
-
-    public IndexModel(ILogger<IndexModel> logger) {
-      _Logger = logger;
-    }
 
     public void OnGet() {
       if(String.IsNullOrEmpty(Message1))
@@ -52,28 +60,46 @@ namespace HotwiredQuoteEditor.Pages {
       return Partial("_NoteAddEdit", note);
     }
 
-    public PartialViewResult OnPostSaveNote(int id, string name) {
+    public async Task<IActionResult> OnPostSaveNote(int id, string name) {
       if(id == 0) {
         var note = new Note { Id = Notes.Instance.Count + 1, Name = name };
         Notes.Instance.Add(note);
 
-        Response.ContentType = "text/vnd.turbo-stream.html";
-        return Partial("_NoteAdd", note);
+        var renderedViewStr = await _Renderer.RenderPartialToStringAsync("../Pages/_NoteAdd", note);
+
+        await _Hub.Clients.All.SendAsync("NotesChanged", renderedViewStr);
+
+        return new EmptyResult();
+        
+        //Response.ContentType = "text/vnd.turbo-stream.html";
+        //return Partial("_NoteAdd", note);
       } else {
         var note = Notes.Instance.Where(i => i.Id == id).FirstOrDefault();
         note.Name = name;
 
-        Response.ContentType = "text/vnd.turbo-stream.html";
-        return Partial("_NoteEdit", note);
+        var renderedViewStr = await _Renderer.RenderPartialToStringAsync("../Pages/_NoteEdit", note);
+
+        await _Hub.Clients.All.SendAsync("NotesChanged", renderedViewStr);
+
+        return new EmptyResult();
+        
+        //Response.ContentType = "text/vnd.turbo-stream.html";
+        //return Partial("_NoteEdit", note);
       }
     }
 
-    public PartialViewResult OnPostDeleteNote(int id) {
+    public async Task<IActionResult> OnPostDeleteNote(int id) {
       var note = Notes.Instance.Where(i => i.Id == id).FirstOrDefault();
       Notes.Instance.Remove(note);
 
-      Response.ContentType = "text/vnd.turbo-stream.html";
-      return Partial("_NoteDelete", note);
+      var renderedViewStr = await _Renderer.RenderPartialToStringAsync("../Pages/_NoteDelete", note);
+
+      await _Hub.Clients.All.SendAsync("NotesChanged", renderedViewStr);
+
+      return new EmptyResult();
+
+      //Response.ContentType = "text/vnd.turbo-stream.html";
+      //return Partial("_NoteDelete", note);
     }
   }
 

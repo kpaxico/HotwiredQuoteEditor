@@ -1,4 +1,6 @@
 ﻿@page
+@using HotwiredQuoteEditor.Hubs
+
 @model IndexModel
 
 <div class="text-center my-12">
@@ -30,6 +32,8 @@
             <partial name="_NoteView" model="@note"></partial>
           }
         </turbo-frame>
+
+        <signalr-turbo-stream hub=@($"/{nameof(AppHub)}") method="NotesChanged"></signalr-turbo-stream>
       </div>
     </div>
     <div class="flex-1 grid justify-center">

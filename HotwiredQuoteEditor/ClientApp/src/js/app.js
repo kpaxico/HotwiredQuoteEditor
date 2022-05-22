@@ -2,6 +2,8 @@
 
 import * as Turbo from '@hotwired/turbo'
 
+import './signalRTurboStreamElement'
+
 // Turns Turbo Drive on/off (default on). 
 // If off, we must opt-in to Turbo Drive on a per-link and per-form basis using data-turbo="true".
 Turbo.session.drive = true
