@@ -36,8 +36,15 @@
         <signalr-turbo-stream hub=@($"/{nameof(AppHub)}") method="NotesChanged"></signalr-turbo-stream>
       </div>
     </div>
-    <div class="flex-1 grid justify-center">
+    <div class="flex-1 grid justify-center content-start">
       <img src="~/dist/images/stimulus.svg" width="275" height="45" />
+      <div class="grid grid-cols-3 m-2"
+           data-controller="hello"
+           data-hello-counter-value="0" 
+           data-hello-empty-class="bg-yellow-300 focus:ring-2 focus:ring-green-500">
+        <input type='text' class="col-span-2" data-hello-target="username" data-action="input->hello#usernameChange"/>
+        <button class="button-primary ml-2" data-action="click->hello#greet">Greet</button>
+      </div>
     </div>
   </div>
 </div>

@@ -17,7 +17,7 @@
   }
 
   [type='text'], [type='email'], [type='url'], [type='password'], [type='number'], [type='date'], [type='datetime-local'], [type='month'], [type='search'], [type='tel'], [type='time'], [type='week'], [multiple], textarea, select {
-    @apply w-full px-3 py-2 text-sm border border-red-900 rounded-md shadow-sm focus:border-site focus:ring-site;
+    @apply w-full px-3 py-2 text-sm border border-red-900 rounded-md shadow-sm focus:outline-none focus:border-site focus:ring-1 focus:ring-site;
   }
 }
 

@@ -4,9 +4,16 @@ import * as Turbo from '@hotwired/turbo'
 
 import './signalRTurboStreamElement'
 
+import { Application } from 'stimulus'
+import { definitionsFromContext } from 'stimulus/webpack-helpers'
+
+const application = Application.start();
+const context = require.context('./controllers', true, /\.js$/);
+application.load(definitionsFromContext(context));
+
 // Turns Turbo Drive on/off (default on). 
 // If off, we must opt-in to Turbo Drive on a per-link and per-form basis using data-turbo="true".
-Turbo.session.drive = true
+Turbo.session.drive = true;
 
 // Turbo event listeners
 document.addEventListener('turbo:load', function (e) {
