@@ -1,0 +1,25 @@
+﻿@inject IRepository<Quote> _Repository
+
+@model HotwiredQuoteEditor.Areas.Tutorial.Pages.QuotesModel
+
+@{
+  <turbo-stream action="replace" target="notification">
+    <template>
+      <turbo-frame id="notification">
+        <partial name="~/Areas/Common/Pages/_SuccessNotification.cshtml" model="@Model" />
+      </turbo-frame>
+    </template>
+  </turbo-stream>
+
+  @if(_Repository.GetAll().Count == 0) {
+    <turbo-stream action="replace" target="quote_0">
+      <template>
+        <turbo-frame id="quote_0">
+          <partial name="~/Areas/Tutorial/Pages/Quote/_Empty.cshtml" />
+        </turbo-frame>
+      </template>
+    </turbo-stream>
+  }
+
+  <turbo-stream action="remove" target="@("quote_" + Model.Id)"></turbo-stream>
+}

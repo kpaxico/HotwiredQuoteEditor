@@ -1,0 +1,26 @@
+﻿@model HotwiredQuoteEditor.Areas.Tutorial.Pages.QuotesModel
+
+@{
+  <turbo-frame id="@("quote_" + Model.Id)">
+    <form method="post">
+      <vc:error-summary model=@Model></vc:error-summary>
+      <div class="flex flex-row bg-white my-2 px-2 py-2 items-center shadow-lg rounded-md">
+        <input type="hidden" asp-for="@Model.Id" hidden />
+        <input type="text" class="flex-1 text-sm mr-1" asp-for="@Model.SelectedEntity.Name" />
+        <a asp-area="Tutorial" asp-page="Quotes"
+         class="p-1.5 border-2 bg-gray-200 border-gray-200 rounded-md hover:bg-gray-300 mr-2">
+          <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"></path>
+          </svg>
+        </a>
+
+        <button type="submit" asp-area="Tutorial" asp-page="/Quotes" asp-page-handler=@(Model.Id == 0 ? "Add" : "Edit") asp-route-id="@Model.Id"
+              class="p-1.5 bg-lime-500 border-2 border-lime-500 rounded-md hover:bg-lime-600 text-center mr-2">
+          <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+        </button>
+      </div>
+    </form>
+  </turbo-frame>
+}

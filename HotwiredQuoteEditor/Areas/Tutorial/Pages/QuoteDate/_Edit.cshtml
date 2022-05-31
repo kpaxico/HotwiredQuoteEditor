@@ -1,0 +1,30 @@
+﻿@model HotwiredQuoteEditor.Areas.Tutorial.Pages.QuoteModel
+
+@{
+  <turbo-stream action="replace" target="notification">
+    <template>
+      <turbo-frame id="notification">
+        <partial name="~/Areas/Common/Pages/_SuccessNotification.cshtml" model="@Model" />
+      </turbo-frame>
+    </template>
+  </turbo-stream>
+
+  <turbo-stream action="remove" target=@("quote_date_" + Model.OldDate.Value.ToString("yyyy-MM-dd"))>
+    <template>
+    </template>
+  </turbo-stream>
+
+  @if(@Model.PrevDate == null) {
+    <turbo-stream action="prepend" target="quote_dates">
+      <template>
+        <partial name="~/Areas/Tutorial/Pages/QuoteDate/_View.cshtml" model="@Model" />
+      </template>
+    </turbo-stream>
+  } else {
+    <turbo-stream action="after" target=@("quote_date_" + Model.PrevDate.Value.ToString("yyyy-MM-dd"))>
+      <template>
+        <partial name="~/Areas/Tutorial/Pages/QuoteDate/_View.cshtml" model="@Model" />
+      </template>
+    </turbo-stream>
+  }
+}

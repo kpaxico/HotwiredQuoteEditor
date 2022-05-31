@@ -1,0 +1,19 @@
+﻿@model HotwiredQuoteEditor.Areas.Tutorial.Pages.QuoteModel
+
+@{
+  <div class="grid grid-cols-1 content-center justify-items-center border-dashed border-2 border-gray-300 rounded-sm py-2 mt-3">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6" >
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+    </svg>
+
+    <div class="text-sm font-semibold">
+      You don't have any dates yet
+    </div>
+    <div class="text-sm">
+      Get started by adding a new date, then add quote items for that date.
+    </div>
+
+    <a asp-area="Tutorial" asp-page="/Quote" asp-page-handler="AddDate" asp-route-id="@Model.Entity.Id" data-turbo-frame="quote_date_0"
+     class="text-sm mt-3 text-white p-1.5 border-2 border-red-500 bg-red-500 hover:bg-red-600 rounded-md">Add Date</a>
+  </div>
+}

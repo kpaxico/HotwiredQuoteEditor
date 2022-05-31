@@ -1,0 +1,33 @@
+﻿@model HotwiredQuoteEditor.Areas.Tutorial.Pages.QuoteModel
+
+@{
+  <turbo-stream action="replace" target="notification">
+    <template>
+      <turbo-frame id="notification">
+        <partial name="~/Areas/Common/Pages/_SuccessNotification.cshtml" model="@Model" />
+      </turbo-frame>
+    </template>
+  </turbo-stream>
+
+  <turbo-stream action="replace" target="@("quote_date_" + @Model.SelectedDateStr + "_item_0")">
+    <template><turbo-frame id=@("quote_date_" + @Model.SelectedDateStr + "_item_0")></turbo-frame></template>
+  </turbo-stream>
+
+  <turbo-stream action="append" target="@("quote_date_" + @Model.SelectedDateStr + "_items")">
+    <template>
+      <partial name="~/Areas/Tutorial/Pages/QuoteItem/_View.cshtml" model="@Model" />
+    </template>
+  </turbo-stream>
+
+  <turbo-stream action="replace" target="@("quote_total")">
+    <template>
+      <turbo-frame id=@("quote_total")>
+        <div class="fixed bottom-0 left-0 right-0 flex py-4 px-8 bg-white justify-between">
+          <h2>Total</h2>
+          <h2>@Model.Entity.TotalPrice.ToString("c")</h2>
+        </div>
+      </turbo-frame>
+    </template>
+  </turbo-stream>
+
+}

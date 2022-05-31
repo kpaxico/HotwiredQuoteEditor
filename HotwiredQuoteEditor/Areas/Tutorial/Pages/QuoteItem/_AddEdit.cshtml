@@ -1,0 +1,35 @@
+﻿@model HotwiredQuoteEditor.Areas.Tutorial.Pages.QuoteModel
+
+@{
+  <turbo-frame id="@("quote_date_" + @Model.SelectedDateStr + "_item_" + @Model.SelectedQuoteItem.Id.ToString())">
+    <form method="post">
+      <vc:error-summary model=@Model></vc:error-summary>
+      <div class="flex flex-row bg-white my-2 px-2 py-2 items-center shadow-lg rounded-md">
+        <input type="hidden" asp-for="@Model.Entity.Id" hidden />
+        <input type="hidden" name="date" value="@Model.SelectedQuoteDate.Date" hidden />
+        <input type="hidden" name="itemId" value="@Model.SelectedQuoteItem.Id" hidden />
+
+        <div class="grid grid-cols-4 gap-1 p-2 mb-3">
+          <input asp-for="@Model.SelectedQuoteItem.Name" placeholder="Name of the article" />
+          <input type="number" asp-for="@Model.SelectedQuoteItem.Quantity" placeholder="Quantity" />
+          <input type="number" asp-for="@Model.SelectedQuoteItem.Price" placeholder="Price" />
+          <div class="flex flex-row justify-end">
+            <a asp-area="Tutorial" asp-page="/Quote"
+             class="p-1.5 border-2 bg-gray-200 border-gray-200 rounded-md hover:bg-gray-300 mr-2">
+              <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </a>
+            <button type="submit" asp-area="Tutorial" asp-page="/Quote" asp-page-handler=@(Model.SelectedQuoteItem.Id == 0 ? "AddItem" : "EditItem")
+                  class="p-1.5 bg-lime-500 border-2 border-lime-500 rounded-md hover:bg-lime-600 text-center mr-2">
+              <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+            </button>
+          </div>
+          <textarea asp-for="@Model.SelectedQuoteItem.Description" class="col-span-4" placeholder="Short description about the article (optional)"></textarea>
+        </div>
+      </div>
+    </form>
+  </turbo-frame>
+}

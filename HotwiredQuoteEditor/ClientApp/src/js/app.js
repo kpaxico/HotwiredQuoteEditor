@@ -6,10 +6,12 @@ import './signalRTurboStreamElement'
 
 import { Application } from 'stimulus'
 import { definitionsFromContext } from 'stimulus/webpack-helpers'
+import Notification from 'stimulus-notification'
 
 const application = Application.start();
 const context = require.context('./controllers', true, /\.js$/);
 application.load(definitionsFromContext(context));
+application.register('notification', Notification)
 
 // Turns Turbo Drive on/off (default on). 
 // If off, we must opt-in to Turbo Drive on a per-link and per-form basis using data-turbo="true".

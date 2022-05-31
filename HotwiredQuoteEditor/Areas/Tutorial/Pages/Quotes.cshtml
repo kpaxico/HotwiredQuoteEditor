@@ -1,5 +1,29 @@
-﻿@page
+﻿@page "{handler=List}/{id?}"
+
+@inject IRepository<Quote> _Repository
+
 @model HotwiredQuoteEditor.Areas.Tutorial.Pages.QuotesModel
+
 @{
-  <h1>Quotes</h1>
+  <div class="h-full px-2 py-1" style="background-color:#FCFAF7">
+    <turbo-frame id="notification">
+      <template></template>
+    </turbo-frame>
+
+    <div class="flex">
+      <h1 class="flex-1">Quotes</h1>
+      <a asp-area="Tutorial" asp-page="/Quotes" asp-page-handler="Add" asp-route-id="0" data-turbo-frame="quote_0"
+       class="text-sm text-white p-1.5 border-2 border-red-500 bg-red-500 hover:bg-red-600 rounded-md">Add Quote</a>
+    </div>
+
+    <turbo-frame id="quote_0">
+      @if(_Repository.GetAll().Count == 0) {
+        <partial name="Quote/_Empty" />
+      }
+    </turbo-frame>
+
+    <partial name="_QuotesView" model="@Model" />
+
+    <signalr-turbo-stream hub=@($"/{nameof(AppHub)}") method="quoteReceived"></signalr-turbo-stream>
+  </div>
 }

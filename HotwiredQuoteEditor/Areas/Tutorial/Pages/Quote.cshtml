@@ -1,0 +1,29 @@
+﻿@page "{handler}/{id}/{date?}/{itemId?}"
+
+@model HotwiredQuoteEditor.Areas.Tutorial.Pages.QuoteModel
+
+<div class="h-full px-2 py-1" style="background-color:#FCFAF7">
+  <a asp-area="Tutorial" asp-page="/Quotes" asp-page-handler="List" class="text-sm text-red-500">← Back to quotes</a>
+
+  <div class="flex justify-between mb-8 mt-4">
+    <h1>@Model.Entity.Name</h1>
+
+    <a asp-area="Tutorial" asp-page="/Quote" asp-page-handler="AddDate" asp-route-id="@Model.Entity.Id" data-turbo-frame="edit_quote_date_0"
+       class="text-sm text-white p-1.5 border-2 border-red-500 bg-red-500 hover:bg-red-600 rounded-md">Add Date</a>
+  </div>
+
+  <turbo-frame id="edit_quote_date_0">
+    @if(@Model.Entity.Dates.Count == 0) {
+      <partial name="QuoteDate/_Empty" />
+    }
+  </turbo-frame>
+
+  <partial name="QuoteDate/_List" model="@Model" />
+
+  <turbo-frame id="@("quote_total")">
+    <div class="fixed bottom-0 left-0 right-0 flex py-4 px-8 bg-white justify-between shadow-lg">
+      <h2>Total</h2>
+      <h2>@Model.Entity.TotalPrice.ToString("c")</h2>
+    </div>
+  </turbo-frame>
+</div>

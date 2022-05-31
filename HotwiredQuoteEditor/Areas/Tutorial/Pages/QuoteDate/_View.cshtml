@@ -1,0 +1,50 @@
+﻿@model HotwiredQuoteEditor.Areas.Tutorial.Pages.QuoteModel
+
+@{
+  <turbo-frame id="@("quote_date_" + @Model.SelectedDateStr)">
+    <turbo-frame id=@("edit_quote_date_" + @Model.SelectedDateStr)>
+      <div class="flex flex-row my-2 px-2 py-2 items-center">
+        <h2 class="flex-1 font-bold">@(Model.SelectedQuoteDate == null ? null : @Model.SelectedQuoteDate.Date.Value.ToString("MMMM dd, yyyy"))</h2>
+        <form method="post">
+          <button type="submit" asp-area="Tutorial" asp-page="/Quote" asp-route-handler="DeleteDate" asp-route-id="@Model.Entity.Id" asp-route-date="@Model.SelectedDateStr"
+                class="p-1.5 border-2 border-gray-200 rounded-md bg-gray-200 hover:bg-gray-300 mr-2">
+            <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+            </svg>
+          </button>
+        </form>
+        <a asp-area="Tutorial" asp-page="/Quote" asp-page-handler="EditDate" asp-route-id="@Model.Entity.Id" asp-route-date="@Model.SelectedDateStr"
+         class="p-1.5 border-2 border-gray-200 rounded-md bg-gray-200 hover:bg-gray-300">
+          <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+          </svg>
+        </a>
+      </div>
+    </turbo-frame>
+    <div class="bg-white p-4 rounded-md shadow-md">
+      <div class="grid grid-cols-4 gap-1 text-sm font-semibold bg-zinc-200 p-2 rounded-md">
+        <div>ARTICLE</div>
+        <div>QUANTITY</div>
+        <div>PRICE</div>
+        <div></div>
+      </div>
+
+      <turbo-frame id=@("quote_date_" + @Model.SelectedDateStr + "_items")>
+        @foreach(var item in @Model.SelectedQuoteDate.Items) {
+          Model.SelectedQuoteItem = @item;
+          <partial name="QuoteItem/_View" model="@Model" />
+        }
+      </turbo-frame>
+
+      <turbo-frame id=@("quote_date_" + @Model.SelectedDateStr + "_item_0")></turbo-frame>
+
+      <div class="grid grid-cols-1 content-center justify-items-center border-dashed border-2 border-gray-300 rounded-sm py-2 mt-3">
+        <a data-turbo-frame="@("quote_date_" + @Model.SelectedDateStr + "_item_0")" asp-area="Tutorial" asp-page="/Quote"
+         asp-page-handler="AddItem" asp-route-id="@Model.Entity.Id" asp-route-date="@Model.SelectedDateStr"
+         class="text-sm mt-3 text-white p-1.5 border-2 border-red-500 bg-red-500 hover:bg-red-600 rounded-md">Add Item</a>
+      </div>
+    </div>
+  </turbo-frame>
+
+  <signalr-turbo-stream hub=@($"/{nameof(AppHub)}") method="quoteItemReceived"></signalr-turbo-stream>
+}

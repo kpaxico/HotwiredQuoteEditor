@@ -1,0 +1,16 @@
+﻿@model HotwiredQuoteEditor.Areas.Tutorial.Pages.QuoteModel
+
+@{
+  <turbo-frame id="notification">
+    <template></template>
+  </turbo-frame>
+
+  <turbo-frame id="quote_dates">
+    @foreach(var item in Model.Entity.Dates.OrderBy(i => i.Date)) {
+      Model.SelectedQuoteDate = @item;
+      <partial name="QuoteDate/_View" model="@Model" />
+    }
+  </turbo-frame>
+
+  <signalr-turbo-stream hub=@($"/{nameof(AppHub)}") method="quoteDateReceived"></signalr-turbo-stream>
+}

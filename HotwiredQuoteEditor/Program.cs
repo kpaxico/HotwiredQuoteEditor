@@ -1,4 +1,6 @@
+using HotwiredQuoteEditor.Data;
 using HotwiredQuoteEditor.Hubs;
+using HotwiredQuoteEditor.Models;
 using HotwiredQuoteEditor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddTransient<IRazorPartialToStringRenderer, RazorPartialToStringRenderer>();
+
+builder.Services.AddSingleton<IRepository<Quote>, QuoteRepository>();
 
 // Add SignalR for DI
 builder.Services.AddSignalR();

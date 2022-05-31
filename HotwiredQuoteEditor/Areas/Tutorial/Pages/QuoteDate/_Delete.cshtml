@@ -1,0 +1,36 @@
+﻿@inject IRepository<Quote> _Repository
+
+@model HotwiredQuoteEditor.Areas.Tutorial.Pages.QuoteModel
+
+@{
+  <turbo-stream action="replace" target="notification">
+    <template>
+      <turbo-frame id="notification">
+        <partial name="~/Areas/Common/Pages/_SuccessNotification.cshtml" model="@Model" />
+      </turbo-frame>
+    </template>
+  </turbo-stream>
+
+  @if(Model.Entity.Dates.Count == 0) {
+    <turbo-stream action="replace" target="edit_quote_date_0">
+      <template>
+        <turbo-frame id="edit_quote_date_0">
+          <partial name="~/Areas/Tutorial/Pages/QuoteDate/_Empty.cshtml" />
+        </turbo-frame>
+      </template>
+    </turbo-stream>
+  }
+
+  <turbo-stream action="replace" target=@("quote_total")>
+    <template>
+      <turbo-frame id=@("quote_total")>
+        <div class="fixed bottom-0 left-0 right-0 flex py-4 px-8 bg-white justify-between">
+          <h2>Total</h2>
+          <h2>@Model.Entity.TotalPrice.ToString("c")</h2>
+        </div>
+      </turbo-frame>
+    </template>
+  </turbo-stream>
+
+  <turbo-stream action="remove" target=@("quote_date_" + @Model.SelectedDateStr)></turbo-stream>
+}

@@ -1,0 +1,21 @@
+﻿@model HotwiredQuoteEditor.Areas.Tutorial.Pages.QuotesModel
+
+@{
+  <turbo-stream action="replace" target="notification">
+    <template>
+      <turbo-frame id="notification">
+        <partial name="~/Areas/Common/Pages/_SuccessNotification.cshtml" model="@Model" />
+      </turbo-frame>
+    </template>
+  </turbo-stream>
+
+  <turbo-stream action="replace" target="quote_0">
+    <template><turbo-frame id="quote_0"></turbo-frame></template>
+  </turbo-stream>
+
+  <turbo-stream action="prepend" target="quotes">
+    <template>
+      <partial name="~/Areas/Tutorial/Pages/Quote/_View.cshtml" model="Model.SelectedEntity" />
+    </template>
+  </turbo-stream>
+}

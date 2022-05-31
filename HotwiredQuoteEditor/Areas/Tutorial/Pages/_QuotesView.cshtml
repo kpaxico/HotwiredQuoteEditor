@@ -1,0 +1,11 @@
+﻿@model HotwiredQuoteEditor.Areas.Tutorial.Pages.QuotesModel
+
+@inject IRepository<Quote> _Repository
+
+@{
+  <turbo-frame id="quotes">
+    @foreach(var item in _Repository.GetAll()) {
+      <partial name="Quote/_View" model="@item" />
+    }
+  </turbo-frame>
+}

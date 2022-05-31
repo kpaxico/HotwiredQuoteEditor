@@ -1,0 +1,17 @@
+﻿@{
+  <div class="grid grid-cols-1 content-center justify-items-center border-dashed border-2 border-gray-300 rounded-sm py-2 mt-3">
+    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path>
+    </svg>
+
+    <div class="text-sm font-semibold">
+      You don't have any quotes yet
+    </div>
+    <div class="text-sm">
+      Get started by creating a new quote.
+    </div>
+
+    <a asp-area="Tutorial" asp-page="/Quotes" asp-page-handler="Add" asp-route-id="0" data-turbo-frame="quote_0"
+     class="text-sm mt-3 text-white p-1.5 border-2 border-red-500 bg-red-500 hover:bg-red-600 rounded-md">Add Quote</a>
+  </div>
+}
