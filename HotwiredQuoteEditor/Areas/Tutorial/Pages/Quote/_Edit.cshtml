@@ -1,15 +1,15 @@
-﻿@model HotwiredQuoteEditor.Areas.Tutorial.Pages.QuotesModel
+﻿@model HotwiredQuoteEditor.Areas.Tutorial.Pages.QuoteModel
 
 @{
   <turbo-stream action="replace" target="notification">
     <template>
-      <turbo-frame id="notification">
-        <partial name="~/Areas/Common/Pages/_SuccessNotification.cshtml" model="@Model" />
-      </turbo-frame>
+      <div id="notification">
+        <partial name="~/Areas/Common/Pages/_SuccessNotification.cshtml" model="@Model.Message" />
+      </div>
     </template>
   </turbo-stream>
 
-  <turbo-stream action="replace" target="@("quote_" + Model.Id)">
+  <turbo-stream action="replace" target="@("quote_" + Model.SelectedEntity.Id)">
     <template>
       <partial name="~/Areas/Tutorial/Pages/Quote/_View.cshtml" model="Model.SelectedEntity" />
     </template>

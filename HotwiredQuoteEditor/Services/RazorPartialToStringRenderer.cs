@@ -43,7 +43,7 @@ namespace HotwiredQuoteEditor.Services {
         );
         try { 
         await partial.RenderAsync(viewContext);
-        } catch (Exception ex) {
+        } catch {
 
         }
         return output.ToString();

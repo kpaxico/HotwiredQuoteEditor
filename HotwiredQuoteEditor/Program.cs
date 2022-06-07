@@ -10,7 +10,7 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddTransient<IRazorPartialToStringRenderer, RazorPartialToStringRenderer>();
 
-builder.Services.AddSingleton<IRepository<Quote>, QuoteRepository>();
+builder.Services.AddSingleton<IQuoteRepository, QuoteRepository>();
 
 // Add SignalR for DI
 builder.Services.AddSignalR();

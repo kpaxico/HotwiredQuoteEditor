@@ -12071,18 +12071,17 @@ var context = __webpack_require__("./src/js/controllers sync recursive \\.js$");
 application.load((0,stimulus_webpack_helpers__WEBPACK_IMPORTED_MODULE_4__.definitionsFromContext)(context));
 application.register('notification', stimulus_notification__WEBPACK_IMPORTED_MODULE_5__["default"]); // Turns Turbo Drive on/off (default on). 
 // If off, we must opt-in to Turbo Drive on a per-link and per-form basis using data-turbo="true".
-
-_hotwired_turbo__WEBPACK_IMPORTED_MODULE_1__.session.drive = true; // Turbo event listeners
-
-document.addEventListener('turbo:load', function (e) {
-  console.log('turbo:load', e);
-});
-document.addEventListener('turbo:visit', function (e) {
-  console.log('turbo:visit', e);
-});
-document.addEventListener('turbo:frame-load', function (e) {
-  console.log('turbo:frame-load', e);
-});
+//Turbo.session.drive = true;
+//// Turbo event listeners
+//document.addEventListener('turbo:load', function (e) {
+//  console.log('turbo:load', e);
+//});
+//document.addEventListener('turbo:visit', function (e) {
+//  console.log('turbo:visit', e);
+//});
+//document.addEventListener('turbo:frame-load', function (e) {
+//  console.log('turbo:frame-load', e);
+//});
 })();
 
 /******/ })()

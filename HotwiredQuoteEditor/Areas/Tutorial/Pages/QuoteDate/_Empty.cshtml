@@ -1,4 +1,4 @@
-﻿@model HotwiredQuoteEditor.Areas.Tutorial.Pages.QuoteModel
+﻿@model HotwiredQuoteEditor.Areas.Tutorial.Pages.QuoteDetailModel
 
 @{
   <div class="grid grid-cols-1 content-center justify-items-center border-dashed border-2 border-gray-300 rounded-sm py-2 mt-3">
@@ -13,7 +13,7 @@
       Get started by adding a new date, then add quote items for that date.
     </div>
 
-    <a asp-area="Tutorial" asp-page="/Quote" asp-page-handler="AddDate" asp-route-id="@Model.Entity.Id" data-turbo-frame="quote_date_0"
+    <a asp-area="Tutorial" asp-page="/QuoteDate" asp-route-handler="Add" asp-route-id="@Model.Entity.Id" data-turbo-frame="quote_date_0"
      class="text-sm mt-3 text-white p-1.5 border-2 border-red-500 bg-red-500 hover:bg-red-600 rounded-md">Add Date</a>
   </div>
 }

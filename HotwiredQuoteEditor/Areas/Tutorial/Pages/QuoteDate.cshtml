@@ -1,0 +1,20 @@
+﻿@page "{handler}/{id:int}/{date?}"
+
+@model HotwiredQuoteEditor.Areas.Tutorial.Pages.QuoteDateModel
+
+@{
+  <a asp-area="Tutorial" asp-page="/QuoteDetail" asp-route-handler="Entity" asp-route-id="@Model.SelectedQuoteDate.Parent.Id" class="text-sm text-red-500">← Back to quote</a>
+
+  if (Model.Handler == "View") {
+    @if (Model.Message != null) {
+      <div id="notification">
+        <partial name="~/Areas/Common/Pages/_SuccessNotification.cshtml" model="@Model.Message" />
+      </div>
+    }
+    <h1 class="flex-1">Quote Date</h1>
+    <partial name="QuoteDate/_View" model="@Model.SelectedQuoteDate" />
+  } else {
+    <h1 class="flex-1">@(Model.Handler == "Add" ? "Add Quote Date" : "Edit Quote Date")</h1>
+    <partial name="QuoteDate/_AddEdit" model="@Model" />
+  }
+}

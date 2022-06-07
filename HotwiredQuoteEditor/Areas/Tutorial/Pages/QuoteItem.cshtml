@@ -1,0 +1,20 @@
+﻿@page "{handler}/{id:int}/{date}/{itemId?}"
+
+@model HotwiredQuoteEditor.Areas.Tutorial.Pages.QuoteItemModel
+
+@{
+  <a asp-area="Tutorial" asp-page="/QuoteDetail" asp-route-handler="Entity" asp-route-id="@Model.Id" class="text-sm text-red-500">← Back to quote</a>
+
+  if (Model.Handler == "View") {
+    @if (Model.Message != null) {
+      <div id="notification">
+        <partial name="~/Areas/Common/Pages/_SuccessNotification.cshtml" model="@Model.Message" />
+      </div>
+    }
+    <h1 class="flex-1">Quote Item</h1>
+    <partial name="QuoteItem/_View" model="@Model.SelectedQuoteItem" />
+  } else {
+    <h1 class="flex-1">@(Model.Handler == "Add" ? "Add Quote Item" : "Edit Quote Item")</h1>
+    <partial name="QuoteItem/_AddEdit" model="@Model" />
+  }
+}

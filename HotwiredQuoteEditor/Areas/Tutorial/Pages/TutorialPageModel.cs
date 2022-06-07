@@ -11,14 +11,17 @@ namespace HotwiredQuoteEditor.Pages {
   public class TutorialPageModel: PageModel {
 
     protected readonly ILogger<TutorialPageModel> _Logger;
-    protected readonly IRepository<Quote> _Repository;
+    protected readonly IQuoteRepository _Repository;
     protected readonly IHubContext<AppHub> _Hub;
     protected readonly IRazorPartialToStringRenderer _Renderer;
+
+    [TempData]
+    public string MessageStr { get; set; }
 
     [BindProperty]
     public JsonMessage Message { get; set; }
 
-    public TutorialPageModel(ILogger<TutorialPageModel> logger, IRepository<Quote> repository,
+    public TutorialPageModel(ILogger<TutorialPageModel> logger, IQuoteRepository repository,
       IHubContext<AppHub> hub, IRazorPartialToStringRenderer renderer) {
       _Logger = logger;
       _Repository = repository;

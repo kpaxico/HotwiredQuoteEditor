@@ -1,4 +1,4 @@
-﻿@model HotwiredQuoteEditor.Pages.TutorialPageModel
+﻿@model HotwiredQuoteEditor.Models.JsonMessage
 
 <!-- Global notification live region, render this permanently at the end of the document -->
 <div data-controller="notification"
@@ -30,8 +30,8 @@
             </svg>
           </div>
           <div class="ml-3 w-0 flex-1 pt-0.5">
-            <p class="text-sm font-medium text-gray-900">@Model.Message.MessageTitle</p>
-            <p class="mt-1 text-sm text-gray-500">@Model.Message.Message</p>
+            <p class="text-sm font-medium text-gray-900">@Model.MessageTitle</p>
+            <p class="mt-1 text-sm text-gray-500">@Model.Message</p>
           </div>
           <div class="ml-4 flex-shrink-0 flex">
             <button data-action="notification#hide"

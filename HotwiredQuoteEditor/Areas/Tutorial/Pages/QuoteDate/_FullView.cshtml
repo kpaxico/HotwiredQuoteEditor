@@ -1,0 +1,33 @@
+﻿@model HotwiredQuoteEditor.Areas.Tutorial.Pages.QuoteDetailModel
+
+@{
+  <turbo-frame id="@("quote_date_" + @Model.SelectedDateStr)">
+    <partial name="QuoteDate/_View" model="@Model.SelectedQuoteDate" />
+    
+    <div class="bg-white p-4 rounded-md shadow-md">
+      <div class="grid grid-cols-4 gap-1 text-sm font-semibold bg-zinc-200 p-2 rounded-md">
+        <div>ARTICLE</div>
+        <div>QUANTITY</div>
+        <div>PRICE</div>
+        <div></div>
+      </div>
+
+      <turbo-frame id=@("quote_date_" + @Model.SelectedDateStr + "_items")>
+        @foreach(var item in @Model.SelectedQuoteDate.Items) {
+          Model.SelectedQuoteItem = @item;
+          <partial name="QuoteItem/_View" model="@Model.SelectedQuoteItem" />
+        }
+      </turbo-frame>
+
+      <turbo-frame id=@("quote_date_" + @Model.SelectedDateStr + "_item_0")></turbo-frame>
+
+      <div class="grid grid-cols-1 content-center justify-items-center border-dashed border-2 border-gray-300 rounded-sm py-2 mt-3">
+        <a data-turbo-frame="@("quote_date_" + @Model.SelectedDateStr + "_item_0")" asp-area="Tutorial" asp-page="/QuoteItem"
+         asp-page-handler="Add" asp-route-id="@Model.Entity.Id" asp-route-date="@Model.SelectedDateStr"
+         class="text-sm mt-3 text-white p-1.5 border-2 border-red-500 bg-red-500 hover:bg-red-600 rounded-md">Add Item</a>
+      </div>
+    </div>
+  </turbo-frame>
+
+  <signalr-turbo-stream hub=@($"/{nameof(AppHub)}") method="quoteItemReceived"></signalr-turbo-stream>
+}

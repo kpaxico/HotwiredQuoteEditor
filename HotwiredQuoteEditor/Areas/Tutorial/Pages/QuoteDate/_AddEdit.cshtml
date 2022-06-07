@@ -1,23 +1,29 @@
-﻿@model HotwiredQuoteEditor.Areas.Tutorial.Pages.QuoteModel
+﻿@model HotwiredQuoteEditor.Areas.Tutorial.Pages.QuoteDateModel
+
+@using HotwiredQuoteEditor.Utils;
 
 @{
-  <turbo-frame id="@("edit_quote_date_" + @Model.SelectedDateStr)">
+  <turbo-frame id="@("edit_quote_date_" + @Model.SelectedQuoteDate.ToString())">
     <form method="post">
       <vc:error-summary model=@Model></vc:error-summary>
       <div class="flex flex-row bg-white my-2 px-2 py-2 items-center shadow-lg rounded-md">
-        <input type="hidden" asp-for="@Model.Entity.Id" hidden />
-        @if(@Model.OldDate != null) {
-          <input type="hidden" name="oldDate" value="@Model.OldDate.Value" hidden />
+        <input type="hidden" asp-for="@Model.SelectedQuoteDate.Parent.Id" hidden />
+        @if(@Model.SelectedQuoteDate.Date != null) {
+          <input type="hidden" name="date" value="@Model.SelectedQuoteDate.Date" hidden />
         }
         <input class="flex-1 text-sm mr-1" type="date" asp-for="@Model.SelectedQuoteDate.Date" />
-        <a asp-area="Tutorial" asp-page="/Quote"
+        <a asp-area="Tutorial" 
+           asp-page="@(Model.Handler == Consts.ActionAdd ? "/QuoteDetail" : "/QuoteDate")" 
+           asp-route-handler="@(Model.Handler == Consts.ActionAdd ? "Entity" : "View")" 
+           asp-route-id="@Model.SelectedQuoteDate.Parent.Id"
+           asp-route-date="@(Model.Handler == Consts.ActionAdd ? "" : @Model.SelectedQuoteDate.ToString())"
          class="p-1.5 border-2 bg-gray-200 border-gray-200 rounded-md hover:bg-gray-300 mr-2">
           <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"></path>
           </svg>
         </a>
 
-        <button type="submit" asp-area="Tutorial" asp-page="/Quote" asp-page-handler=@(Model.SelectedQuoteDate == null || !Model.SelectedQuoteDate.Date.HasValue ? "AddDate" : "EditDate")
+        <button type="submit" asp-area="Tutorial" asp-page="/QuoteDate" asp-page-handler=@(Model.SelectedQuoteDate == null || !Model.SelectedQuoteDate.Date.HasValue ? "AddDate" : "EditDate")
               class="p-1.5 bg-lime-500 border-2 border-lime-500 rounded-md hover:bg-lime-600 text-center mr-2">
           <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>

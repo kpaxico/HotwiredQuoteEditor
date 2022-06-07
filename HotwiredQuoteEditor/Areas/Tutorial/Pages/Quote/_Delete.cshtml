@@ -1,13 +1,13 @@
-﻿@inject IRepository<Quote> _Repository
+﻿@inject IQuoteRepository _Repository
 
 @model HotwiredQuoteEditor.Areas.Tutorial.Pages.QuotesModel
 
 @{
   <turbo-stream action="replace" target="notification">
     <template>
-      <turbo-frame id="notification">
-        <partial name="~/Areas/Common/Pages/_SuccessNotification.cshtml" model="@Model" />
-      </turbo-frame>
+      <div id="notification">
+        <partial name="~/Areas/Common/Pages/_SuccessNotification.cshtml" model="@Model.Message" />
+      </div>
     </template>
   </turbo-stream>
 

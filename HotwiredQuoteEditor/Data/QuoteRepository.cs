@@ -4,7 +4,7 @@ using HotwiredQuoteEditor.Models;
 
 namespace HotwiredQuoteEditor.Data {
 
-  public sealed class QuoteRepository: IRepository<Quote> {
+  public sealed class QuoteRepository: IQuoteRepository {
 
     private readonly ILogger<QuoteRepository> _Logger;
 
@@ -14,18 +14,18 @@ namespace HotwiredQuoteEditor.Data {
       _Logger = logger;
       _Logger.LogInformation("QuoteRepository constructor");
 
-      _EntityList.Add(Quote.GetNew("Quote 1", 1));
-      _EntityList.Add(Quote.GetNew("Quote 2", 2));
+      _EntityList.Add(new Quote("Quote 1", 1));
+      _EntityList.Add(new Quote("Quote 2", 2));
       
-      var entity = Quote.GetNew("Quote 3", 3);
-      entity.Dates.Add(new QuoteDate { Date = new DateTime(2022, 5, 10) });
-      entity.Dates.Add(new QuoteDate { Date = new DateTime(2022, 6, 12) });
+      var entity = new Quote("Quote 3", 3);
+      entity.Dates.Add(new QuoteDate(entity, new DateTime(2022, 5, 10)));
+      entity.Dates.Add(new QuoteDate(entity, new DateTime(2022, 6, 12)));
       
-      var entityDate = new QuoteDate { Date = new DateTime(2022, 7, 30) };
+      var entityDate = new QuoteDate(entity, new DateTime(2022, 7, 30));
       entity.Dates.Add(entityDate);
 
-      entityDate.Items.Add(QuoteItem.GetNew("Item 1", "Item 1 Description", 10, 100));
-      entityDate.Items.Add(QuoteItem.GetNew("Item 2", "Item 2 Description", 20, 200));
+      entityDate.Items.Add(new QuoteItem(entityDate, "Item 1", "Item 1 Description", 10, 100));
+      entityDate.Items.Add(new QuoteItem(entityDate, "Item 2", "Item 2 Description", 20, 200));
 
       _EntityList.Add(entity);
     }
