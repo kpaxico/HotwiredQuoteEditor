@@ -15,9 +15,6 @@ namespace HotwiredQuoteEditor.Pages {
     protected readonly IHubContext<AppHub> _Hub;
     protected readonly IRazorPartialToStringRenderer _Renderer;
 
-    [TempData]
-    public string MessageStr { get; set; }
-
     [BindProperty]
     public JsonMessage Message { get; set; }
 

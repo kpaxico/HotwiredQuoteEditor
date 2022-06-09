@@ -1,13 +1,16 @@
 ﻿@page "{handler}/{id:int}"
+
 @model HotwiredQuoteEditor.Areas.Tutorial.Pages.QuoteModel
+
+@using HotwiredQuoteEditor.Utils;
 
 @{
   <a asp-area="Tutorial" asp-page="/Quotes" asp-page-handler="List" class="text-sm text-red-500">← Back to quotes</a>
 
   if (Model.Handler == "View") {
-    @if (Model.Message != null) {
+    @if (TempData.ContainsKey("Message")) {
       <div id="notification">
-        <partial name="~/Areas/Common/Pages/_SuccessNotification.cshtml" model="@Model.Message" />
+        <partial name="~/Areas/Common/Pages/_SuccessNotification.cshtml" model="@(TempData.Get<JsonMessage>("Message"))" />
       </div>
     }
     <h1 class="flex-1">Quote</h1>

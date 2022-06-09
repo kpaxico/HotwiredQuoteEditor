@@ -31,11 +31,6 @@ namespace HotwiredQuoteEditor.Areas.Tutorial.Pages {
     public void OnGetEntity(int id) {
       _Logger.LogInformation($"OnGetEntity, id = {id}");
       Entity = _Repository.Get(id);
-
-      if (TempData["MessageStr"] != null) {
-        Message = new JsonMessage { IsSuccess = true, MessageTitle = "Successful operation", Message = TempData["MessageStr"].ToString() };
-        TempData.Remove("MessageStr");
-      }
     }
 
     #region QuoteDate
@@ -45,10 +40,10 @@ namespace HotwiredQuoteEditor.Areas.Tutorial.Pages {
       SelectedQuoteDate = Entity.Dates.Where(i => i.Date == date).FirstOrDefault();
       Entity.Dates.Remove(SelectedQuoteDate);
 
-      var messageStr = "Date is successfully deleted.";
+      var message = JsonMessage.GetSuccessMessage("Date is successfully deleted.");
 
       if (Request.AcceptsTurboStream()) {
-        Message = new JsonMessage { IsSuccess = true, MessageTitle = "Successful operation", Message = messageStr };
+        Message = message;
 
         var renderedViewStr = await _Renderer.RenderPartialToStringAsync("../Areas/Tutorial/Pages/QuoteDate/_Delete", this);
 
@@ -61,8 +56,8 @@ namespace HotwiredQuoteEditor.Areas.Tutorial.Pages {
         return Partial("QuoteDate/_Delete", this);
         #endregion
       } else {
-        MessageStr = messageStr;
-        
+        TempData.Set<JsonMessage>("Message", message);
+
         return LocalRedirect($"/Tutorial/QuoteDetail/Entity/{id}");
       }
     }
@@ -77,10 +72,10 @@ namespace HotwiredQuoteEditor.Areas.Tutorial.Pages {
       SelectedQuoteItem = SelectedQuoteDate.Items.Where(i => i.Id == itemId).FirstOrDefault();
       SelectedQuoteDate.Items.Remove(SelectedQuoteItem);
 
-      var messageStr = "Item is successfully deleted.";
+      var message = JsonMessage.GetSuccessMessage("Item is successfully deleted.");
 
       if (Request.AcceptsTurboStream()) {
-        Message = new JsonMessage { IsSuccess = true, MessageTitle = "Successful operation", Message = messageStr };
+        Message = message;
 
         var renderedViewStr = await _Renderer.RenderPartialToStringAsync("../Areas/Tutorial/Pages/QuoteItem/_Delete", this);
 
@@ -93,7 +88,7 @@ namespace HotwiredQuoteEditor.Areas.Tutorial.Pages {
         return Partial("QuoteItem/_Delete", this);
         #endregion
       } else {
-        MessageStr = messageStr;
+        TempData.Set<JsonMessage>("Message", message);
 
         return LocalRedirect($"/Tutorial/QuoteDetail/Entity/{id}");
       }

@@ -9,7 +9,7 @@ using HotwiredQuoteEditor.Pages;
 using HotwiredQuoteEditor.Utils;
 
 namespace HotwiredQuoteEditor.Areas.Tutorial.Pages {
-  
+
   public class QuoteDateModel : TutorialPageModel {
 
     [BindProperty(SupportsGet = true)]
@@ -28,11 +28,6 @@ namespace HotwiredQuoteEditor.Areas.Tutorial.Pages {
       _Logger.LogInformation($"OnGetView, id = {id}, date = {date}");
       var selectedQuote = _Repository.Get(id);
       SelectedQuoteDate = selectedQuote.Dates.Where(i => i.Date == date).FirstOrDefault();
-
-      if (TempData["MessageStr"] != null) {
-        Message = new JsonMessage { IsSuccess = true, MessageTitle = "Successful operation", Message = TempData["MessageStr"].ToString() };
-        TempData.Remove("MessageStr");
-      }
     }
 
     public void OnGetAdd(int id) {
@@ -61,10 +56,10 @@ namespace HotwiredQuoteEditor.Areas.Tutorial.Pages {
           entity.Dates.Add(SelectedQuoteDate);
           PrevDate = entity.Dates.Where(i => i.Date.Value < SelectedQuoteDate.Date.Value).Max(i => i.Date);
 
-          var messageStr = "Date is successfully created.";
+          var message = JsonMessage.GetSuccessMessage("Date is successfully created.");
 
           if (Request.AcceptsTurboStream()) {
-            Message = new JsonMessage { IsSuccess = true, MessageTitle = "Successful operation", Message = messageStr };
+            Message = message;
 
             var renderedViewStr = await _Renderer.RenderPartialToStringAsync("../Areas/Tutorial/Pages/QuoteDate/_Add", this);
 
@@ -77,7 +72,7 @@ namespace HotwiredQuoteEditor.Areas.Tutorial.Pages {
             return Partial("QuoteDate/_Add", this);
             #endregion
           } else {
-            MessageStr = messageStr;
+            TempData.Set<JsonMessage>("Message", message);
 
             return LocalRedirect($"/Tutorial/QuoteDate/View/{entity.Id}/{SelectedQuoteDate.ToString()}");
           }
@@ -103,10 +98,10 @@ namespace HotwiredQuoteEditor.Areas.Tutorial.Pages {
             PrevDate = entity.Dates.Where(i => i.Date.Value < SelectedQuoteDate.Date.Value).Max(i => i.Date);
           }
 
-          var messageStr = "Date is successfully edited.";
+          var message = JsonMessage.GetSuccessMessage("Date is successfully edited.");
 
           if (Request.AcceptsTurboStream()) {
-            Message = new JsonMessage { IsSuccess = true, MessageTitle = "Successful operation", Message = messageStr };
+            Message = message;
 
             var renderedViewStr = await _Renderer.RenderPartialToStringAsync("../Areas/Tutorial/Pages/QuoteDate/_Edit", this);
 
@@ -119,7 +114,7 @@ namespace HotwiredQuoteEditor.Areas.Tutorial.Pages {
             return Partial("QuoteDate/_Edit", this);
             #endregion
           } else {
-            MessageStr = messageStr;
+            TempData.Set<JsonMessage>("Message", message);
 
             return LocalRedirect($"/Tutorial/QuoteDate/View/{entity.Id}/{SelectedQuoteDate.ToString()}");
           }

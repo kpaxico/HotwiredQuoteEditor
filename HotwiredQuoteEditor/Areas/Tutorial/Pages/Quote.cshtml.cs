@@ -24,11 +24,6 @@ namespace HotwiredQuoteEditor.Areas.Tutorial.Pages {
     public void OnGetView(int id) {
       _Logger.LogInformation($"OnGetView, id = {id}");
       SelectedEntity = _Repository.Get(id);
-
-      if (TempData["MessageStr"] != null) {
-        Message = new JsonMessage { IsSuccess = true, MessageTitle = "Successful operation", Message = TempData["MessageStr"].ToString() };
-        TempData.Remove("MessageStr");
-      }
     }
 
     public void OnGetAdd(int id) {
@@ -49,10 +44,10 @@ namespace HotwiredQuoteEditor.Areas.Tutorial.Pages {
         _Repository.Add(entity);
         SelectedEntity = entity;
 
-        var messageStr = "Quote is successfully added.";
+        var message = JsonMessage.GetSuccessMessage("Quote is successfully added.");
 
         if (Request.AcceptsTurboStream()) {
-          Message = new JsonMessage { IsSuccess = true, MessageTitle = "Successful operation", Message = messageStr };
+          Message = message;
 
           string partialViewName = "_Add";
           var renderedViewStr = await _Renderer.RenderPartialToStringAsync($"../Areas/Tutorial/Pages/Quote/{partialViewName}", this);
@@ -66,7 +61,7 @@ namespace HotwiredQuoteEditor.Areas.Tutorial.Pages {
           return Partial($"Quote/{partialViewName}", this);
           #endregion
         } else {
-          MessageStr = messageStr;
+          TempData.Set<JsonMessage>("Message", message);
 
           return LocalRedirect($"/Tutorial/Quote/View/{entity.Id}");
         }
@@ -85,10 +80,10 @@ namespace HotwiredQuoteEditor.Areas.Tutorial.Pages {
         }
         SelectedEntity = entity;
 
-        var messageStr = "Quote is successfully edited.";
+        var message = JsonMessage.GetSuccessMessage("Quote is successfully edited.");
 
         if (Request.AcceptsTurboStream()) {
-          Message = new JsonMessage { IsSuccess = true, MessageTitle = "Successful operation", Message = messageStr };
+          Message = message;
 
           string partialViewName = "_Edit";
           var renderedViewStr = await _Renderer.RenderPartialToStringAsync($"../Areas/Tutorial/Pages/Quote/{partialViewName}", this);
@@ -102,7 +97,7 @@ namespace HotwiredQuoteEditor.Areas.Tutorial.Pages {
           return Partial($"Quote/{partialViewName}", this);
           #endregion
         } else {
-          MessageStr = messageStr;
+          TempData.Set<JsonMessage>("Message", message);
 
           return LocalRedirect($"/Tutorial/Quote/View/{entity.Id}");
         }

@@ -28,11 +28,6 @@ namespace HotwiredQuoteEditor.Areas.Tutorial.Pages {
       var selectedQuote = _Repository.Get(id);
       var selectedQuoteDate = selectedQuote.Dates.Where(i => i.Date == date).FirstOrDefault();
       SelectedQuoteItem = selectedQuoteDate.Items.Where(i => i.Id == itemId).FirstOrDefault();
-
-      if (TempData["MessageStr"] != null) {
-        Message = new JsonMessage { IsSuccess = true, MessageTitle = "Successful operation", Message = TempData["MessageStr"].ToString() };
-        TempData.Remove("MessageStr");
-      }
     }
 
     public void OnGetAdd(int id, DateTime date) {
@@ -63,10 +58,10 @@ namespace HotwiredQuoteEditor.Areas.Tutorial.Pages {
         SelectedQuoteItem = new QuoteItem(selectedQuoteDate, SelectedQuoteItem.Name, SelectedQuoteItem.Description, SelectedQuoteItem.Quantity, SelectedQuoteItem.Price);
         selectedQuoteDate.Items.Add(SelectedQuoteItem);
 
-        var messageStr = "Item is successfully created.";
+        var message = JsonMessage.GetSuccessMessage("Item is successfully created.");
 
         if (Request.AcceptsTurboStream()) {
-          Message = new JsonMessage { IsSuccess = true, MessageTitle = "Successful operation", Message = messageStr };
+          Message = message;
 
           var renderedViewStr = await _Renderer.RenderPartialToStringAsync("../Areas/Tutorial/Pages/QuoteItem/_Add", this);
 
@@ -79,7 +74,7 @@ namespace HotwiredQuoteEditor.Areas.Tutorial.Pages {
           return Partial("QuoteItem/_Add", this);
           #endregion
         } else {
-          MessageStr = messageStr;
+          TempData.Set<JsonMessage>("Message", message);
 
           return LocalRedirect($"/Tutorial/QuoteItem/View/{selectedQuote.Id}/{selectedQuoteDate.ToString()}/{SelectedQuoteItem.Id}");
         }
@@ -103,10 +98,10 @@ namespace HotwiredQuoteEditor.Areas.Tutorial.Pages {
         selectedQuoteItem.Quantity = SelectedQuoteItem.Quantity;
         selectedQuoteItem.Price = SelectedQuoteItem.Price;
 
-        var messageStr = "Item is successfully edited.";
+        var message = JsonMessage.GetSuccessMessage("Item is successfully edited.");
 
         if (Request.AcceptsTurboStream()) {
-          Message = new JsonMessage { IsSuccess = true, MessageTitle = "Successful operation", Message = messageStr };
+          Message = message;
 
           var renderedViewStr = await _Renderer.RenderPartialToStringAsync("../Areas/Tutorial/Pages/QuoteItem/_Edit", this);
 
@@ -119,7 +114,7 @@ namespace HotwiredQuoteEditor.Areas.Tutorial.Pages {
           return Partial("QuoteItem/_Edit", this);
           #endregion
         } else {
-          MessageStr = messageStr;
+          TempData.Set<JsonMessage>("Message", message);
 
           return LocalRedirect($"/Tutorial/QuoteItem/View/{selectedQuote.Id}/{selectedQuoteDate.ToString()}/{selectedQuoteItem.Id}");
         }

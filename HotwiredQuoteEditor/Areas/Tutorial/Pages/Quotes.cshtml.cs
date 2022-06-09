@@ -24,22 +24,18 @@ namespace HotwiredQuoteEditor.Areas.Tutorial.Pages {
     }
 
     public void OnGetList() {
-      if (TempData["MessageStr"] != null) {
-        Message = new JsonMessage { IsSuccess = true, MessageTitle = "Successful operation", Message = TempData["MessageStr"].ToString() };
-        TempData.Remove("MessageStr");
-      }
     }
 
     public async Task<IActionResult> OnPostDelete(int id) {
       _Logger.LogInformation($"OnPostDelete, id = {id}");
-      
+
       _Repository.Delete(id);
 
-      var messageStr = "Quote is successfully deleted.";
+      var message = JsonMessage.GetSuccessMessage("Quote is successfully deleted.");
 
       if (Request.AcceptsTurboStream()) {
-        Message = new JsonMessage { IsSuccess = true, MessageTitle = "Successful operation", Message = messageStr };
-        
+        Message = message;
+
         var renderedViewStr = await _Renderer.RenderPartialToStringAsync("../Areas/Tutorial/Pages/Quote/_Delete", this);
 
         //await _Hub.Clients.All.SendAsync("QuoteReceived", renderedViewStr);
@@ -51,7 +47,7 @@ namespace HotwiredQuoteEditor.Areas.Tutorial.Pages {
         return Partial("Quote/_Delete", this);
         #endregion
       } else {
-        MessageStr = messageStr;
+        TempData.Set<JsonMessage>("Message", message);
 
         return LocalRedirect("/Tutorial/Quotes");
       }
