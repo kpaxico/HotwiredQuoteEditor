@@ -8,7 +8,7 @@ namespace HotwiredQuoteEditor.Utils {
   public static class ExtensionMethods {
 
     public static bool AcceptsTurboStream(this HttpRequest request) {
-      request.Headers.TryGetValue("turbo-frame", out StringValues headerValue);
+      request.Headers.TryGetValue("accept", out StringValues headerValue);
       return request.Headers.Accept.SelectMany(i => i.Split(",")).Select(i => i.Trim()).Contains(Consts.ContentTypeTurboStream);
     }
 
